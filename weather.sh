@@ -1,9 +1,16 @@
 #!/bin/sh
 
 interval=`grep -o 'interval[ ]*=[ ]*[0-9]*\.\?[0-9]*' weather.ini | grep -o '[0-9]*\.\?[0-9]*'`
-echo $interval
 while true
 do
-	wget --quiet meteoprog.by/ru/weather/minsk  -O -|grep -o 'property="og:description" content=".*"' | grep -o 'content=".*"'| grep -o '".*"' | grep -o '[^"]*'
+	wget meteoprog.by/ru/weather/minsk -T 1 -t 3 -q -O helpfile
+	result=`grep -o 'property="og:description" content=".*"' helpfile| grep -o 'content=".*"'| grep -o '".*"' | grep -o '[^"]*'`
+	rm helpfile
+	if test "$result" = ""
+	then
+		echo "No internet"
+		break
+	fi
+	echo $result	
 	sleep $interval
 done
