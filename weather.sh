@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if test $1  = "--help"
+then
+	echo help weather message
+	exit
+fi
+
 interval=`grep -o 'interval[ ]*=[ ]*[0-9]*\.\?[0-9]*' weather.ini | grep -o '[0-9]*\.\?[0-9]*'`
 while true
 do
