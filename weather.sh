@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-if test $1  = "--help"
-then
+if [ x$1  = x"--help" ] ; then
 	echo help weather message
 	exit
 fi
